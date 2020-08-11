@@ -16,21 +16,12 @@ app.use(cors());
 /* ROUTES */
 
 app.use('/api', apiRouter);
-app.use('/api/categories', categoriesRouter);
 
 app.use('/login', loginRouter);
 
-app.use('/build', express.static(path.join(__dirname, '../build')));
+app.use('/build', express.static(path.join(__dirname, '/build')));
 
-if (process.env.NODE_ENV === 'production') {
-  // serve index.html on the route '/'
-  app.get('*', (req, res) => {res.sendFile(path.join(__dirname, '../../index.html'))});
-}
-
-if (process.env.NODE_ENV === 'development') {
-  // serve index.html on the route '/'
-  app.get('*', (req, res) => {res.sendFile(path.join(__dirname, '../../index.html'))});
-}
+app.get('*', (req, res) => {res.sendFile(path.join(__dirname, '../index.html'))});
 
 const port = 3000;
 app.listen(port, () => console.log(`Server running on port ${port}`));
