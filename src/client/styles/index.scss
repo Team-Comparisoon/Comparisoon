@@ -1,0 +1,38 @@
+// @use 'variables' as *;
+@import 'variables';
+
+body {
+  margin: 0;
+  font-family: $font-family;
+  background-color: $bg-color;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  // display: block;
+}
+
+button {
+  padding: 0.7rem;
+}
+
+.loginPage {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.githubBtn {
+  // color: white;
+  color: $font-color;
+  // background-color: $blue;
+  background-color: $btn-color;
+  text-decoration: none;
+  padding: 1rem;
+  border-radius: $border-radius;
+  border: none;
+  font-size: 1rem;
+}
+
+.newCategory {
+
+}
