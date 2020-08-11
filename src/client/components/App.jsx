@@ -36,7 +36,7 @@ function App() {
         <Route exact path="/categories/new">
           <CreateCategory />
         </Route>
-        <Route exact path="/compare/:categoryID">
+        <Route exact path="/compare/">
           <Compare />
         </Route>
         <Route exact path="/technologies/new">
@@ -46,6 +46,10 @@ function App() {
     </Router>
   );
 }
+
+// <Route exact path="/compare/:categoryID">
+//   <Compare />
+// </Route>
 
 //Hooks don't work in classes
 //useState - returns an array with 2 values.

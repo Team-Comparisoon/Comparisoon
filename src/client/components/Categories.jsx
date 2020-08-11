@@ -11,7 +11,7 @@ function Categories() {
         <Link to="/categories/new">Define new category</Link>
       </button>
       <button>
-        <Link to="/categories/new">Define new technology</Link>
+        <Link to="/technologies/new">Define new technology</Link>
       </button>
     </div>
   );

@@ -5,7 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 // 2 buttons with Links on them
 export default function NewCategory() {
   const history = useHistory();
-  const goMain = () => history.push('categories');
+  // const goMain = () => history.push('categories');
   return (
     <div>
       <h1>New Category Fill Up!!!</h1>
