@@ -3,7 +3,7 @@ package-lock.json
 
 #### build ##### 
 build/
-
+.env
 
 ### DS Store #####
 **/.DS_Store
