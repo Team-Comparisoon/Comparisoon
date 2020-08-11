@@ -1,14 +1,14 @@
 {
-  "name": "boilerplate",
+  "name": "comparisoon",
   "version": "1.0.0",
   "description": "",
   "main": "",
   "scripts": {
-    "start": "nodemon server/server.js",
+    "start": "nodemon src/server/server.js",
     "build": "NODE_ENV=production webpack",
-    "dev": "NODE_ENV=development webpack-dev-server --open & nodemon server/server.js"
+    "dev": "NODE_ENV=development webpack-dev-server --open & nodemon src/server/server.js"
   },
-  "author": "Raymond",
+  "author": "The Comparisooners, Inc. Arggggggg",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.10.3",
