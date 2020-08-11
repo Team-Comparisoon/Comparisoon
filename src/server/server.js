@@ -16,6 +16,7 @@ app.use(cors());
 /* ROUTES */
 
 app.use('/api', apiRouter);
+app.use('/api/categories', categoriesRouter);
 
 app.use('/login', loginRouter);
 
