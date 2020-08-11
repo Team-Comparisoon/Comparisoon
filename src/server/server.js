@@ -4,6 +4,7 @@ const app = express();
 const path = require('path');
 const cors = require('cors');
 const apiRouter = require('./routes/apiRouter.js');
+const categoriesRouter = require('./routes/categoriesRouter.js');
 const port = 3000;
 
 /* GLOBAL HANDLERS */
@@ -12,13 +13,14 @@ app.use(cors())
 
 /* ROUTES */
 app.use('/api', apiRouter);
+app.use('/api/categories', categoriesRouter);
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/build', express.static(path.join(__dirname, '../build')));
 
   // serve index.html on the route '/'
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../index.html'));
+    res.sendFile(path.join(__dirname, '../../index.html'));
   });
 }
 
