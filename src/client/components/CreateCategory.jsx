@@ -23,9 +23,12 @@ export default function NewCategory() {
 
   // add another little component for the field to the bottom of container
   const handleNewField = (e) => {
-    e.preventDefault();
-    const fieldsArr = fields.push("");
-    setFields(fieldsArr);
+    // e.preventDefault();
+    // const fieldsArr = fields.push("");
+    // fields.push(e.target.value);
+    // console.log('ARR ', fieldsArr);
+    // console.log('TYPE ', typeof fieldsArr);
+    setFields(fields.concat(""));
     // inputFieldsRef.current.value.push(e.target.value);
     // inputFieldsRef.current.value.push("");
     const newC = count + 1;
@@ -37,8 +40,9 @@ export default function NewCategory() {
 
   const handleSaveCategory = (e) => {
     // if (inputCategoryRef.current.value && inputFieldsRef.current.value) {
+    e.preventDefault();
     if (inputCategoryRef.current.value && fields) {
-      e.preventDefault();
+      console.log("FIELDS IN SAVE ", fields);
       const data = {
         name: inputCategoryRef.current.value,
         fields: fields,
@@ -48,7 +52,16 @@ export default function NewCategory() {
       const newC = 0;
       setCount(newC);
       console.log("DATA TO SAVE ", data);
-      saveCategory(data)
+      // saveCategory(data)
+      fetch("/api/categories", {
+        method: "POST",
+        body: JSON.stringify(data),
+      })
+        .then((resp) => {
+          resp = resp.json();
+          console.log("RESP ", resp);
+          return resp;
+        })
         .then((status) => {
           // check if responding with status code 200?
           console.log("Status ", status);
@@ -65,19 +78,23 @@ export default function NewCategory() {
   // category doesn't exist for the user
   // no duplicates in fields
   // async/ await??
-  const saveCategory = (data) => {
-    console.log("DATA TO SAVE ", data);
-    const response = fetch("/api/categories", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-    console.log("RESPONSE ", response);
-    // return response.json();
-  };
+  // const saveCategory = (data) => {
+  //   console.log("DATA TO SAVE ", data);
+  //   const response = fetch("/api/categories", {
+  //     method: "POST",
+  //     body: JSON.stringify(data),
+  //   });
+  //   // console.log("RESPONSE ", response);
+  //   // return response.json();
+  // };
 
   // const handleGoBackMainClick = () => {
   //   //
   // }
+
+  // useEffect(() => {
+  //   handleFieldChange();
+  // });
 
   console.log("CATEGORY ", inputCategoryRef);
   return (
@@ -108,9 +125,15 @@ export default function NewCategory() {
   );
 }
 
+// {fields.map((f) => {
+//   <Field key={count} ind={count} val={f} />;
+// })}
 // {fields.forEach((f) => {
 //   <Field key={count} ind={count} />
 // })}
+// <Field key={count} ind={count} />
+// onClick={handleSaveCategory}
+
 // onClick={handleGoBackMainClick}
 // {fields.map((el) => (
 //   <Field key={fields.indexOf(el)} fieldName={el} />
@@ -124,7 +147,9 @@ export default function NewCategory() {
 function Field(props) {
   return (
     <div>
-      <input type="text" placeholder={`Field-${props.ind} Name`}></input>
+      <input type="text" placeholder={`Field-${props.ind} Name`}>
+        {props.val}
+      </input>
     </div>
   );
 }
