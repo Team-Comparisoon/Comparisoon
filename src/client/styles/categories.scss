@@ -1,0 +1,15 @@
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 1rem;
+
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-self: flex-start;  
+    }
+}
