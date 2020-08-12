@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import '../styles/categories.scss';
 import styled from 'styled-components';
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -12,27 +13,31 @@ function Categories() {
         fetch('/api/categories')
             .then(response => response.json())
                 .then(data => {
-                    setState(data.categories)})
+                  console.log('data.name', data.name)
+                  console.log('data.id' , data.id);
+                  console.log('data.categories' , data.categories)
+                    state = setState(data.categories)})
                     .catch(err => setHasError(true))
-    }, [])
+    }, [state])
 
   return (
-    <div>
+    <div className="mainContainer">
       <h1>Categories!!!</h1>
-      <>
+      <div>
       { hasError? <div> Oh, no! There was an error.</div> 
-        : ( state.map( (category) => {
-             <li>
+        :(state.map( (category) => {
+          console.log('category' , category);
+             <li className="category">
                     <Link to={{
-                        pathname: '/categories/:categoryID',
-                        state: {category.id}
+                        pathname: `/categories/${category.id}`,
+                        state: {category}
                     }}/>
                     {category.name}
              </li>
 
         }))
       }
-      </>
+      </div>
       <button>
         <Link to="/categories/new">Define new category</Link>
       </button>
