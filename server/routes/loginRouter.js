@@ -1,55 +1,19 @@
-const express = require('express');
-const fetch = require("node-fetch");
+const express = require("express");
 const router = express.Router();
+const {
+  getGitHubData,
+  storeId,
+  setCookie,
+} = require("../controllers/loginController.js");
 
-
-router.get('/callback', (req, res) => {
-  const body = {
-    client_id: process.env.CLIENT_ID,
-    client_secret: process.env.CLIENT_SECRET,
-    code: req.query.code
-  };
-  console.log("~~~~", req.query);
-  const opts = { "accept": 'application/json' };
-  fetch(`https://github.com/login/oauth/access_token`, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify(body)
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log("Token!!!!!!!: ", data);
-    let token = data['access_token']
-    console.log('My token:', token);
-    return token;
-  })
-  .then(token => {
-    return fetch("https://api.github.com/user", {
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Authorization": `token ${token}` 
-      }
-    })
-  })
-  .then(data => data.json())
-  .then(data => {
-    const {login, id, avatar_url, name} = data;
-    console.log("login: ", login);
-    console.log("id: ", id);
-    console.log("avatar url: ", avatar_url);
-    console.log("name: ", name);
-    const obj = {login, id, avatar_url, name};
-    res.send(obj);
-  })
-  .catch(err => res.status(500).json({ message: err.message }));
+router.get("/callback", getGitHubData, storeId, setCookie, (req, res) => {
+  res.status(200).json(res.locals.oauthData);
 });
 
-router.get('/', (req, res) => {
-  res.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}`);
+router.get("/", (req, res) => {
+  res.redirect(
+    `https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}`
+  );
 });
 
 module.exports = router;
