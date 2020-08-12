@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 const apiRouter = require("./routes/apiRouter.js");
 const loginRouter = require("./routes/loginRouter.js");
 const db = require("./db/db.js");
-const cookieParser = require('cookie-parser');
 
 db.connect();
 
@@ -15,7 +14,6 @@ db.connect();
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser()); 
 
 app.use(cors());
 

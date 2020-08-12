@@ -49,8 +49,8 @@ export default function NewCategory() {
       };
       inputCategoryRef.current.value = "";
       setFields([]);
-      const newC = 0;
-      setCount(newC);
+      // const newC = 0;
+      setCount(0);
       console.log("DATA TO SAVE ", data);
       // saveCategory(data)
       fetch("/api/categories", {
@@ -77,6 +77,7 @@ export default function NewCategory() {
   // data in format { name: ‘frontend library’, fields: [‘data flow’, etc.] }
   // category doesn't exist for the user
   // no duplicates in fields
+
   // async/ await??
   // const saveCategory = (data) => {
   //   console.log("DATA TO SAVE ", data);
