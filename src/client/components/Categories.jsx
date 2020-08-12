@@ -13,10 +13,13 @@ function Categories() {
         fetch('/api/categories')
             .then(response => response.json())
                 .then(data => {
+                  
                   console.log('data.name', data.name)
                   console.log('data.id' , data.id);
-                  console.log('data.categories' , data.categories)
-                    state = setState(data.categories)})
+                  console.log('data: ' , data)
+                    state = setState(data);
+                  let {name , id} = state; 
+                  })
                     .catch(err => setHasError(true))
     }, [state])
 
@@ -25,12 +28,12 @@ function Categories() {
       <h1>Categories!!!</h1>
       <div>
       { hasError? <div> Oh, no! There was an error.</div> 
-        :(state.map( (category) => {
+        :(state.map( (name , id) => {
           console.log('category' , category);
              <li className="category">
                     <Link to={{
-                        pathname: `/categories/${category.id}`,
-                        state: {category}
+                        pathname: `/categories/:category.${id}`,
+                        state: {name}
                     }}/>
                     {category.name}
              </li>
