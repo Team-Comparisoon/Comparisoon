@@ -11,14 +11,19 @@ function Categories() {
 
     useEffect(() => {
         fetch('/api/categories')
-            .then(response => response.json())
-                .then(data => {
+            .then(response => {
+              console.log('response ' , response);
+              return response.json()})
+                .then(data => { 
+                  console.log('data' , data);
+                for(let i = 0; i < data.length; i++){
+                  console.log('data.name', data[i].name)
+                  console.log('data.id' , data[i].id);
+                  //console.log('data.categories' , data.categories);
+                } 
                   
-                  console.log('data.name', data.name)
-                  console.log('data.id' , data.id);
-                  console.log('data: ' , data);
-                  console.log('data.categories' , data.categories);
                     state = setState(data);
+                    console.log(state);
                   //let {name , id} = state; 
                   })
                     .catch(err => setHasError(true))
@@ -52,3 +57,37 @@ function Categories() {
   );
 }
 export default Categories;
+
+/* 
+const renderCategories = () => {
+  return state.map((category) => {
+    const {name , id } = category; 
+
+    return (
+      <li className="category">
+      <Link to={{
+          pathname: `/categories/:category.${id}` , 
+          state: {category}
+        }}/>
+        Hi, I'm an li and I work now, yay!!!
+        {name}
+      </li>
+    )}
+  )}
+
+        return (
+          <div className= "main-container">
+            <h1>Categories</h1>
+            <div className="categories">
+            {renderCategories()}
+            </div>
+            <button>
+              <Link to="/categories/new">Define new category</Link>
+            </button>
+            <button>
+              <Link to="/technologies/new">Define new technology</Link>
+            </button>
+          </div>
+        )
+
+*/
