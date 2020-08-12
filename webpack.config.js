@@ -10,9 +10,10 @@ module.exports = {
     path: path.resolve(__dirname, 'build')
   },
   devServer: {
+    historyApiFallback: true,
     publicPath: 'http://localhost:8080/build/',
     proxy: {
-      '/api': {
+      '/': {
         target: 'http://localhost:3000/'
       },
     },
