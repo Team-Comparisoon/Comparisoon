@@ -16,9 +16,10 @@ function Categories() {
                   
                   console.log('data.name', data.name)
                   console.log('data.id' , data.id);
-                  console.log('data: ' , data)
+                  console.log('data: ' , data);
+                  console.log('data.categories' , data.categories);
                     state = setState(data);
-                  let {name , id} = state; 
+                  //let {name , id} = state; 
                   })
                     .catch(err => setHasError(true))
     }, [state])
@@ -28,12 +29,12 @@ function Categories() {
       <h1>Categories!!!</h1>
       <div>
       { hasError? <div> Oh, no! There was an error.</div> 
-        :(state.map( (name , id) => {
+        :(state.map( (category) => {
           console.log('category' , category);
              <li className="category">
                     <Link to={{
-                        pathname: `/categories/:category.${id}`,
-                        state: {name}
+                        pathname: `/categories/:category.${category.id}`,
+                        state: {category}
                     }}/>
                     {category.name}
              </li>
