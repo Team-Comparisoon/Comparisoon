@@ -5,27 +5,48 @@ import { Link } from "react-router-dom";
 
 // 2 buttons with Links on them
 export default function NewCategory() {
-  const [categoryName, setCategoryName] = useState("");
+  // const [categoryName, setCategoryName] = useState("");
+  // make frontend add pros and cons fields?
   const [fields, setFields] = useState(["pros", "cons"]);
+  // increment on every addFiled button click
+  const [count, setCount] = useState(1);
   const inputCategoryRef = useRef(null);
-  const inputFieldRef = useRef(null);
+  // const inputFieldsRef = useRef(null);
+  const inputFieldsRef = useRef([]);
+
+  // useLayoutEffect(() => {
+  //   effect
+  //   return () => {
+  //     cleanup
+  //   };
+  // }, [input]);
 
   // add another little component for the field to the bottom of container
   const handleNewField = (e) => {
+    e.preventDefault();
     const fieldsArr = fields.push("");
     setFields(fieldsArr);
+    // inputFieldsRef.current.value.push(e.target.value);
+    // inputFieldsRef.current.value.push("");
+    const newC = count + 1;
+    setCount(newC);
+    console.log("COUNT, FIELDS ", count, fields);
     // const fieldsArr = fields.push(inputFieldRef.current.value);
     // setFields(fieldsArr);
   };
 
   const handleSaveCategory = (e) => {
-    if (inputCategoryRef.current.vale && inputFieldRef.current.value) {
+    // if (inputCategoryRef.current.value && inputFieldsRef.current.value) {
+    if (inputCategoryRef.current.value && fields) {
       e.preventDefault();
       const data = {
         name: inputCategoryRef.current.value,
         fields: fields,
       };
       inputCategoryRef.current.value = "";
+      setFields([]);
+      const newC = 0;
+      setCount(newC);
       console.log("DATA TO SAVE ", data);
       saveCategory(data)
         .then((status) => {
@@ -54,6 +75,10 @@ export default function NewCategory() {
     // return response.json();
   };
 
+  // const handleGoBackMainClick = () => {
+  //   //
+  // }
+
   console.log("CATEGORY ", inputCategoryRef);
   return (
     <div className="mainContainer newCategory">
@@ -69,28 +94,37 @@ export default function NewCategory() {
           ></input>
           <h4>Fields you would want to compare:</h4>
           <div className="fieldsContainer">
-            {fields.map((el) => (
-              <Field key={fields.indexOf(el)} fieldName={el} />
-            ))}
+            <Field key={count} ind={count} />
             <br></br>
-            <button onClick={handleNewField}>+Add Field</button>
+            <button onClick={handleNewField}>Add Field</button>
           </div>
           <button type="submit">Save</button>
         </form>
       </div>
-      <Link to="/categories">Back to Categories</Link>
+      <Link className="btn" to="/categories">
+        Back to Categories
+      </Link>
     </div>
   );
 }
 
+// {fields.forEach((f) => {
+//   <Field key={count} ind={count} />
+// })}
+// onClick={handleGoBackMainClick}
+// {fields.map((el) => (
+//   <Field key={fields.indexOf(el)} fieldName={el} />
+// ))}
+
 // instead of form submission have onClick for button with Link?
 // <Link to="/categories">Save category</Link>
 
+// ref={inputFieldsRef}
 // component for field?
 function Field(props) {
   return (
     <div>
-      <input type="text" placeholder="Field Name"></input>
+      <input type="text" placeholder={`Field-${props.ind} Name`}></input>
     </div>
   );
 }
