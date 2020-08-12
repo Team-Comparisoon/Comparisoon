@@ -18,8 +18,12 @@ function App() {
   // "/technologies/{technologyID}"
   // "/compare"
 
+  console.log('COOKIES ', document.cookie);
+  const loggedIn = document.cookie
+    .split(";")
+    .some((item) => item.trim().startsWith("token="));
   // modify later!
-  const loggedIn = true;
+  // const loggedIn = true;
   // const loggedIn = false;
   return (
     <Router>

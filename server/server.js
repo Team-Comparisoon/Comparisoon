@@ -6,11 +6,15 @@ const cors = require('cors');
 const apiRouter = require('./routes/apiRouter.js');
 const loginRouter = require('./routes/loginRouter.js');
 const db = require("./db/db.js");
+const cookieParser = require('cookie-parser');
 
 db.connect();
 
 /* GLOBAL HANDLERS */
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser()); 
+
 app.use(cors());
 
 /* ROUTES */
