@@ -5,20 +5,57 @@ body {
   margin: 0;
   font-family: $font-family;
   background-color: $bg-color;
-  position: relative;
-  width: 100%;
-  margin: 0 auto;
+  // position: relative;
+  // width: 100%;
+  // margin: 0 auto;
   // display: block;
 }
 
 button {
   padding: 0.7rem;
+  font-size: 1em;
 }
 
-.loginPage {
+.mainContainer {
+  display: flex;
+  // background-color: $bg-color;
+  height: 100vh;
+  color: white;
+}
+
+.mainContainer.loginPage {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.mainContainer.newCategory {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0.5rem;
+  margin: 1rem;
+  // height: 100vh;
+  .inputArea {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: flex-start;
+    .fieldsContainer {
+      width: calc(100% - 1rem);
+      // height: 1em;
+      // padding: 0.7rem;
+      // margin: 1rem 0;
+    }
+    button {
+      margin: 1rem 0;
+      padding: 0 10px;
+    }
+  }
+  // .fieldsContainer {
+    // display: flex;
+  // }
 }
 
 .githubBtn {
@@ -33,6 +70,4 @@ button {
   font-size: 1rem;
 }
 
-.newCategory {
-
-}
+.newCategory {}

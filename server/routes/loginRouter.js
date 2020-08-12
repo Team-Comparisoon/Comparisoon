@@ -42,9 +42,9 @@ router.get("/callback", (req, res) => {
       console.log("avatar url: ", avatar_url);
       console.log("name: ", name);
       const obj = { login, id, avatar_url, name };
-      // res.send(obj);
+      res.send(obj);
       // return res.send(obj).redirect('/');
-      return res.status(200).redirect('/');
+      // return res.status(200).redirect('/');
     })
     .catch((err) => res.status(500).json({ message: err.message }));
 });
