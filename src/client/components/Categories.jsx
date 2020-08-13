@@ -17,13 +17,12 @@ function Categories() {
       })
       .then((data) => {
         console.log("data", data);
-        for (let i = 0; i < data.length; i++) {
-          console.log("data.name", data[i].name);
-          console.log("data.id", data[i].id);
-        }
-
+        // for (let i = 0; i < data.length; i++) {
+        //   console.log("data.name", data[i].name);
+        //   console.log("data.id", data[i].id);
+        // }
         setState(data);
-        console.log("state", state);
+        // console.log("state", state);
         // let {name , id} = state;
       })
       .catch((err) => {
