@@ -18,10 +18,10 @@ function App() {
   // "/technologies/{technologyID}"
   // "/compare"
 
-  // console.log('COOKIES ', document.cookie);
+  console.log('COOKIES ', document.cookie);
   // const loggedIn = document.cookie
   //   .split(";")
-  //   .some((item) => item.trim().startsWith("token="));
+  //   .some((item) => item.trim().startsWith("id="));
   // modify later!
   const loggedIn = true;
   // const loggedIn = false;
@@ -43,7 +43,7 @@ function App() {
         <Route exact path="/compare">
           <Compare />
         </Route>
-        <Route exact path="/items/new">
+        <Route exact path="/technologies/new">
           <CreateTechnology />
         </Route>
       </Switch>

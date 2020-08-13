@@ -16,6 +16,7 @@ categoriesController.getCategories = (req, res, next) => {
 
 categoriesController.insertCategory = (req, res, next) => {
   const sqlQuery = `INSERT INTO categories(name, fields, userid) VALUES($1,$2,$3);`;
+  console.log('BODY ', req.body);
   db.query(sqlQuery, [req.body.name, req.body.fields, req.cookies.id])
     .then(() => {
       console.log("insertCategory was successful");

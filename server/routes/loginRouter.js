@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 const router = express.Router();
 const {
   getGitHubData,
@@ -7,7 +8,9 @@ const {
 } = require("../controllers/loginController.js");
 
 router.get("/callback", getGitHubData, storeId, setCookie, (req, res) => {
-  res.status(200).json(res.locals.oauthData);
+  console.log('end of callback chain');
+  res.status(200).redirect('/');
+  //res.status(200).json(res.locals.oauthData);
 });
 
 router.get("/", (req, res) => {
