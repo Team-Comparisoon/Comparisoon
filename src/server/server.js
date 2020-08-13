@@ -39,4 +39,6 @@ if(process.env.NODE_ENV === 'development') {
   });  
 }
 
-app.listen(() => console.log(`Server running on port: ${port}`));
+app.listen(port, () => {
+  console.log(`Server running on port: ${port}`)
+});
