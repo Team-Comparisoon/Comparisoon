@@ -63,7 +63,8 @@ loginController.storeId = (req, res, next) => {
 
 // set cookie with hash id
 loginController.setCookie = (req, res, next) => {
-  res.cookie("id", res.locals.id, { httpOnly: true });
+  // TODO: encrypt id with jwt before setting as cookie
+  res.cookie("id", res.locals.id);
   next();
 };
 
