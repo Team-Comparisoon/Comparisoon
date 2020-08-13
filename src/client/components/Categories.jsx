@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import "../styles/categories.scss";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import '../styles/categories.scss';
 // import styled from 'styled-components';
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -10,13 +10,13 @@ function Categories() {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    fetch("/api/categories")
+    fetch('/api/categories')
       .then((response) => {
-        console.log("response ", response);
+        console.log('response ', response);
         return response.json();
       })
       .then((data) => {
-        console.log("data", data);
+        console.log('data', data);
         // for (let i = 0; i < data.length; i++) {
         //   console.log("data.name", data[i].name);
         //   console.log("data.id", data[i].id);
@@ -26,7 +26,7 @@ function Categories() {
         // let {name , id} = state;
       })
       .catch((err) => {
-        console.log("error", err);
+        console.log('error', err);
         setHasError(true);
       });
   }, []);
@@ -43,7 +43,7 @@ function Categories() {
               <li className="category" key={category.id}>
                 <Link
                   to={{
-                    pathname: `/categories/${category.id}`,
+                    pathname: `/compare/${category.id}`,
                     state: { category },
                   }}
                 >
