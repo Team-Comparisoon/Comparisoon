@@ -3,9 +3,10 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const cors = require("cors");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 const apiRouter = require("./routes/apiRouter.js");
 const loginRouter = require("./routes/loginRouter.js");
+const itemsRouter = require("./routes/itemsRouter.js");
 const db = require("./db/db.js");
 
 db.connect();
@@ -21,9 +22,8 @@ app.use(cors());
 
 /* ROUTES */
 app.use("/api", apiRouter);
-
 app.use("/login", loginRouter);
-
+app.use("/items", itemsRouter);
 app.use("/build", express.static(path.join(__dirname, "/build")));
 
 // maybe
@@ -37,7 +37,7 @@ app.get("*", (req, res) => {
 app.use((err, req, res, next) => {
   const defaultErr = {
     status: 400,
-    message: "Bad Request",
+    message: "Bad Request from global err handler",
   };
   const error = {
     ...defaultErr,

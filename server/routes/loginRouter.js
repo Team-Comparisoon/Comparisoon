@@ -8,9 +8,12 @@ const {
 } = require("../controllers/loginController.js");
 
 router.get("/callback", getGitHubData, storeId, setCookie, (req, res) => {
-  console.log('end of callback chain');
-  res.status(200).redirect('/');
+  // TODO: either send back index.html or redirect to '/' ??
   //res.status(200).json(res.locals.oauthData);
+  if (process.env.NODE_ENV === 'production') {
+    res.status(200).redirect("/");
+  }
+  else res.status(200).redirect("http://localhost:8080");
 });
 
 router.get("/", (req, res) => {
