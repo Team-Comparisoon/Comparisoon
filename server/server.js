@@ -3,9 +3,10 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const cors = require("cors");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 const apiRouter = require("./routes/apiRouter.js");
 const loginRouter = require("./routes/loginRouter.js");
+const itemsRouter = require("./routes/itemsRouter.js");
 const db = require("./db/db.js");
 
 db.connect();
@@ -17,12 +18,12 @@ app.use(cors());
 
 /* ROUTES */
 app.use("/api", apiRouter);
-
 app.use("/login", loginRouter);
-
+app.use("/items", itemsRouter);
 app.use("/build", express.static(path.join(__dirname, "/build")));
 
 app.get("*", (req, res) => {
+  console.log("app.get *");
   res.sendFile(path.join(__dirname, "../index.html"));
 });
 
