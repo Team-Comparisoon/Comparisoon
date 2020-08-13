@@ -7,7 +7,7 @@ router.get("/", getItems, (req, res) => {
 });
 
 router.post("/", insertItems, (req, res) => {
-  res.sendStatus(200);
+  res.status(200).json("Inserted");
 });
 
 module.exports = router;

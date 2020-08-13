@@ -23,7 +23,6 @@ app.use("/items", itemsRouter);
 app.use("/build", express.static(path.join(__dirname, "/build")));
 
 app.get("*", (req, res) => {
-  console.log("app.get *");
   res.sendFile(path.join(__dirname, "../index.html"));
 });
 
@@ -31,7 +30,7 @@ app.get("*", (req, res) => {
 app.use((err, req, res, next) => {
   const defaultErr = {
     status: 400,
-    message: "Bad Request",
+    message: "Bad Request from global err handler",
   };
   const error = { ...defaultErr, ...err };
   res.status(error.status).json(error);
