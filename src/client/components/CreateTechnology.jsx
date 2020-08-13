@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function NewTechnology(props) {
@@ -19,9 +19,25 @@ export default function NewTechnology(props) {
 
   //item name - input form
   //Categories - Dropdown
-  //Fields - text area
+  //Fields - text area/ input
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   fetch("/api/categories")
+  //     .then((response) => {
+  //       console.log("response ", response);
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       console.log("data", data);
+  //       setCategories(data);
+  //       console.log("FIRST ", data[0]);
+  //       const catObj = data[0];
+  //       setCategory(catObj);
+  //       console.log("CHOSEN CAT init ", category);
+  //     });
+  // }, []);
+
+  useLayoutEffect(() => {
     fetch("/api/categories")
       .then((response) => {
         console.log("response ", response);
@@ -29,14 +45,6 @@ export default function NewTechnology(props) {
       })
       .then((data) => {
         console.log("data", data);
-        // for (let i = 0; i < data.length; i++) {
-        //     console.log("data.name", data[i].name);
-        //     console.log("data.id", data[i].id);
-        //     console.log("data.fields: ", data[i].fields);
-        //     for (let f of data[i].fields) {
-        //       console.log('F ', f);
-        //     }
-        // }
         setCategories(data);
         console.log("FIRST ", data[0]);
         const catObj = data[0];
@@ -44,18 +52,6 @@ export default function NewTechnology(props) {
         console.log("CHOSEN CAT init ", category);
       });
   }, []);
-
-  // console.log("categories: ", categories);
-  // {fields.map((f, i) => {
-  //   return (
-  //     <Field
-  //       key={f + i}
-  //       val={f}
-  //       ind={i}
-  //       handleChange={handleFieldValue}
-  //     />
-  //   );
-  // })}
 
   const handleChosenCategory = (e) => {
     // console.log("e.target: " , e.target.value);
@@ -94,7 +90,7 @@ export default function NewTechnology(props) {
       <div>
         <label>{props.name}</label>
         <input
-          id={props.ind}
+          id={props.name}
           type="text"
           onChange={props.handleChange}
           value={props.val}
@@ -110,7 +106,7 @@ export default function NewTechnology(props) {
       // const data = {
       //   name: inputItemRef.current.value,
       //   fields: {
-      //     `${category}`: {’data flow’ :  value, ‘field2’: value },
+      //     `${category.name}`: {category.fields}: {values},
       //   }
       // };
       fetch("/api/items", {
@@ -138,25 +134,14 @@ export default function NewTechnology(props) {
     <div>
       <div>
         <form onClick={handleSaveTechnology}>
-          <label>
-            Name Of Technology:
+          <div>
             <input type="text" placeholder="Name-Of-Tech" ref={inputItemRef} />
-          </label>
+          </div>
           <div className="dropdown">
             <Dropdown handleChange={handleChosenCategory} choice={category} />
           </div>
           <div className="fieldsContainer">
-            {category.fields.map((f, i) => {
-              return (
-                <Field
-                  key={f + i}
-                  field={f}
-                  val={f}
-                  ind={i}
-                  handleChange={handleField}
-                />
-              );
-            })}
+            {JSON.stringify(category.fields)}
           </div>
           <button type="submit"> Save </button>
         </form>
@@ -166,7 +151,26 @@ export default function NewTechnology(props) {
   );
 }
 
+// {JSON.stringify(category.fields)}
+
+// {category.fields.map((f, i) => {
+//   return (
+//     <Field
+//       key={f + i}
+//       field={f}
+//       val={f}
+//       ind={i}
+//       handleChange={handleField}
+//     />
+//   )
+// })}
+
 // {
 //   categories.filter((c) => c === category)['fields'].map((field, i) => {
 //   <Field key={f + i} handleChange={handleField} ind={i} val={f}/>
 // })}
+
+// <label>
+//   Name Of Technology:
+//   <input type="text" placeholder="Name-Of-Tech" ref={inputItemRef} />
+// </label>
