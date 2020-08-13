@@ -1,16 +1,11 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
-import Categories from "./Categories.jsx";
-import CreateCategory from "./CreateCategory.jsx";
-import CreateTechnology from "./CreateTechnology.jsx";
-import Login from "./Login.jsx";
-import Compare from "./Compare.jsx";
+import Categories from './Categories.jsx';
+import CreateCategory from './CreateCategory.jsx';
+import CreateTechnology from './CreateTechnology.jsx';
+import Login from './Login.jsx';
+import Compare from './Compare.jsx';
 
 function App() {
   // "/login" - OAuth
@@ -40,7 +35,7 @@ function App() {
         <Route exact path="/categories/new">
           <CreateCategory />
         </Route>
-        <Route exact path="/compare">
+        <Route path="/compare/:categoryId">
           <Compare />
         </Route>
         <Route exact path="/technologies/new">
@@ -59,9 +54,9 @@ export default App;
 //   <Compare />
 // </Route>
 
-//Hooks don't work in classes
-//useState - returns an array with 2 values.
-//Use array destructuring
+// Hooks don't work in classes
+// useState - returns an array with 2 values.
+// Use array destructuring
 // 1. Current State (count).
 // 2. Function (allow us to update our state).
 

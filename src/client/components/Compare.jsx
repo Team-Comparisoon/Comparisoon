@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -34,9 +34,10 @@ export default function ComparePage() {
   // const goMain = () => history.push('categories');
   const [state, setState] = useState([]);
   const [hasError, setHasError] = useState(false);
+  const { categoryId } = useParams();
 
   useEffect(() => {
-    fetch(`/api/compare/${category.id}`)
+    fetch(`/api/compare/${categoryId}`)
       .then((response) => {
         console.log('Response:  ', response);
         return response.json();
@@ -48,7 +49,6 @@ export default function ComparePage() {
         //          }
         console.log('Data :', data);
         setState(data);
-        console.log('state: ', state);
       })
       .catch((err) => {
         console.log('Error : ', err);
@@ -57,40 +57,45 @@ export default function ComparePage() {
   }, []);
 
   // eslint-disable-next-line consistent-return
-  const renderFields = (props) => {
+  const renderInputs = () => {
+    if (state.length === 0) return;
     // get outer objects keys, it's an array
-    const outerArr = Object.keys(state);
-    const fields = [];
-    for (let i = 0; i < outerArr.length; i++) {
-      // at array[0] , get all of those inner object keys, it's an array
-      fields.push(Object.keys(outerArr[i]));
-    }
-    // return THAT array
-    const fieldsArr = fields.filter((field, i) => fields.indexOf(field) === i);
-    return fieldsArr;
+    const itemNames = Object.keys(state);
+    console.log('items', itemNames);
+    // get fieldNames by checking keys of first item
+    const fields = Object.keys(state[itemNames[0]]);
+    console.log('fields:', fields);
+    const inputs = [];
+    fields.forEach((field) => {
+      inputs.push(field);
+      itemNames.forEach((itemName) => {
+        inputs.push(state[itemName][field]);
+      });
+    });
+    return inputs.map((input) => {
+      return <Cell className="input">{input}</Cell>;
+    });
   };
 
   function renderNames() {
+    if (state.length === 0) return 0;
     const technologyNames = state;
-    console.log('Technologies(renderNames)', technologyNames);
+    console.log('TechnologyNames', technologyNames);
     const names = Object.keys(technologyNames);
-    return names;
+    return names.map((technology) => {
+      return <Cell className="technology-name">{technology}</Cell>;
+    });
   }
+
+  const namesArr = renderNames();
 
   return (
     <div className="Compare">
       <h1>You're Category Grid</h1>
-      <Grid color="blue" columns={names.length + 1}>
+      <Grid color="blue" columns={namesArr.length + 1}>
         <Cell>I'm the Empty Cell</Cell>
-        {names.map((technology) => {
-          return <Cell className="technology-name">{technology}</Cell>;
-        })}
-        <Col color="red" rows={fieldsArr.length + 1}>
-          <Cell>Fields:</Cell>
-          {fieldsArr.map((field) => {
-            return <Cell className="field-name">{field}</Cell>;
-          })}
-        </Col>
+        {state.length !== 0 && namesArr}
+        {state.length !== 0 && renderInputs()}
       </Grid>
     </div>
   );
