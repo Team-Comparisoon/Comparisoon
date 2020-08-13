@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,6 +18,10 @@ function App() {
   // "/technologies/{technologyID}"
   // "/compare"
 
+  console.log('COOKIES ', document.cookie);
+  // const loggedIn = document.cookie
+  //   .split(";")
+  //   .some((item) => item.trim().startsWith("id="));
   // modify later!
   const loggedIn = true;
   // const loggedIn = false;
@@ -36,7 +40,7 @@ function App() {
         <Route exact path="/categories/new">
           <CreateCategory />
         </Route>
-        <Route exact path="/compare/">
+        <Route exact path="/compare">
           <Compare />
         </Route>
         <Route exact path="/technologies/new">
@@ -46,6 +50,10 @@ function App() {
     </Router>
   );
 }
+
+export default App;
+
+// { useState, useEffect }
 
 // <Route exact path="/compare/:categoryID">
 //   <Compare />
@@ -78,5 +86,3 @@ function App() {
 //     </div>
 //   )
 // }
-
-export default App;

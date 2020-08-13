@@ -4,9 +4,13 @@ import React from "react";
 // implement anchor tag with proper endpoint for backend to pick up
 export default function Login() {
   return (
-    <div>
+    <div className="mainContainer loginPage">
       <h1>***COMPARISOON***</h1>
-      <h3>You need to log in first!</h3>
+      <a href="/login" className="githubBtn">
+        Sign in to GITHUB
+      </a>
     </div>
   );
 }
+
+// <h3>You need to log in first!</h3>
