@@ -1,7 +1,7 @@
-import React, { Component, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import '../styles/categories.scss';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "../styles/categories.scss";
+// import styled from 'styled-components';
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // 2 buttons with Links on them
@@ -10,24 +10,23 @@ function Categories() {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    fetch('/api/categories')
+    fetch("/api/categories")
       .then((response) => {
-        console.log('response ', response);
+        console.log("response ", response);
         return response.json();
       })
       .then((data) => {
-        console.log('data', data);
-        for (let i = 0; i < data.length; i++) {
-          console.log('data.name', data[i].name);
-          console.log('data.id', data[i].id);
-        }
-
+        console.log("data", data);
+        // for (let i = 0; i < data.length; i++) {
+        //   console.log("data.name", data[i].name);
+        //   console.log("data.id", data[i].id);
+        // }
         setState(data);
-        console.log('state', state);
+        // console.log("state", state);
         // let {name , id} = state;
       })
       .catch((err) => {
-        console.log('error', err);
+        console.log("error", err);
         setHasError(true);
       });
   }, []);
@@ -64,6 +63,7 @@ function Categories() {
     </div>
   );
 }
+
 export default Categories;
 
 /*

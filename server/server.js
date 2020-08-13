@@ -7,15 +7,17 @@ const cookieParser = require('cookie-parser');
 const apiRouter = require('./routes/apiRouter.js');
 const loginRouter = require('./routes/loginRouter.js');
 const db = require('./db/db.js');
-const cookieParser = require('cookie-parser');
 
 db.connect();
 
 /* GLOBAL HANDLERS */
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-//app.use(cookieParser());
+app.use(
+  express.urlencoded({
+    extended: false,
+  })
+);
 
 app.use(cors());
 
@@ -24,6 +26,9 @@ app.use('/api', apiRouter);
 app.use('/login', loginRouter);
 
 app.use('/build', express.static(path.join(__dirname, '/build')));
+
+// maybe
+app.get('/bundle.js', (req, res) => res.sendFile(path.resolve(__dirname, '../build/bundle.js')));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../index.html'));
@@ -35,7 +40,10 @@ app.use((err, req, res, next) => {
     status: 400,
     message: 'Bad Request from global err handler',
   };
-  const error = { ...defaultErr, ...err };
+  const error = {
+    ...defaultErr,
+    ...err,
+  };
   res.status(error.status).json(error);
 });
 
