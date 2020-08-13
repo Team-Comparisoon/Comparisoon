@@ -64,14 +64,14 @@ itemsController.insertItems = (req, res, next) => {
       const rows = [];
       for (let categoryId in req.body.fields) {
         for (let fieldName in req.body.fields[categoryId]) {
-          const row = [categoryId, itemId, req.cookies.id];
+          const row = [categoryId, itemId];
           row.push(fieldName);
           row.push(req.body.fields[categoryId][fieldName]);
           rows.push(row);
         }
       }
       const inputsQuery = format(
-        `INSERT INTO all_inputs(categoryid, itemid, userid, fieldname, value) VALUES %L`,
+        `INSERT INTO all_inputs(categoryid, itemid, fieldname, value) VALUES %L`,
         rows
       );
       return db.query(inputsQuery);
@@ -85,6 +85,9 @@ itemsController.insertItems = (req, res, next) => {
     });
 };
 
+itemsController.getItemById = (req, res, next) => {
+  // const getitemQuery = ``
 
+};
 
 module.exports = itemsController;
