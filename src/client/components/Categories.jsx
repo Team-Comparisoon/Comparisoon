@@ -33,7 +33,7 @@ function Categories() {
 
   return (
     <div className="mainContainer">
-      <h1>Categories!!!</h1>
+      <h1 className="categories-header">Categories</h1>
       <div>
         {hasError ? (
           <div> Oh, no! There was an error.</div>
