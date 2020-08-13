@@ -36,6 +36,7 @@
     "bcrypt": "^5.0.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "eslint-plugin-react-hooks": "^4.0.8",
     "express": "^4.17.1",
     "fetch": "^1.1.0",
     "node-fetch": "^2.6.0",

@@ -1,8 +1,32 @@
 import React, { Component, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { unstable_renderSubtreeIntoContainer } from 'react-dom';
+
 // import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+// grid-template-columns: 100px 50px 100px;
+//   grid-template-rows: 80px auto 80px;
+//   column-gap: 10px;
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(${(props) => props.columns}, minmax(2rem, auto));
+  border: ${(props) => props.border};
+  color: ${(props) => props.color};
+`;
+const Cell = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  background-color: ${(props) => props.backgroundColor || 'white'};
+  color: ${(props) => props.color || 'black'};
+  box-sizing: border-box;
+`;
+const Col = styled.div`
+  color: ${(props) => props.color};
+  flex: ${(props) => props.size};
+`;
 
 // we need to pass category name to this component?
 export default function ComparePage() {
@@ -12,7 +36,7 @@ export default function ComparePage() {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    fetch(`/api/compare`)
+    fetch(`/api/compare/${category.id}`)
       .then((response) => {
         console.log('Response:  ', response);
         return response.json();
@@ -32,80 +56,42 @@ export default function ComparePage() {
       });
   }, []);
 
-  function renderFields(state) {
-    // for each key in the outer object
-    const technologies = state;
-
-    for (let technology in technologies) {
-      // grab the keys of that key (object.keys(key)?) , returns an array of keys
-      const fields = Object.keys(technology[key]);
-      console.log('fields', fields);
-      // map through that array
-      // return a row for each key.
-      return fields.map((field) => {
-        return (
-          <Row className="field-names" color="green">
-            {field}
-          </Row>
-        );
-      });
+  // eslint-disable-next-line consistent-return
+  const renderFields = (props) => {
+    // get outer objects keys, it's an array
+    const outerArr = Object.keys(state);
+    const fields = [];
+    for (let i = 0; i < outerArr.length; i++) {
+      // at array[0] , get all of those inner object keys, it's an array
+      fields.push(Object.keys(outerArr[i]));
     }
+    // return THAT array
+    const fieldsArr = fields.filter((field, i) => fields.indexOf(field) === i);
+    return fieldsArr;
+  };
+
+  function renderNames() {
+    const technologyNames = state;
+    console.log('Technologies(renderNames)', technologyNames);
+    const names = Object.keys(technologyNames);
+    return names;
   }
 
-  function renderNames(state) {
-    const technologies = state;
-    console.log('Technologies(renderNames)', technologies);
-    const names = Object.keys(technologies);
-
-    return technologies.map((technology) => {
-      return (
-        <Col className="technology-name" color="blue">
-          {technology}
-        </Col>
-      );
-    });
-  }
-
-  const Grid = styled.div`
-    border: ${(props) => props.border};
-    color: ${(props) => props.color};
-  `;
-  const Row = styled.div`
-    display: flex;
-    color: ${(props) => props.color};
-  `;
-  const Col = styled.div`
-    color: ${(props) => props.color};
-  `;
-  setHasError(true);
   return (
-    <div className="compare-container">
-      <h1 className="compare-header">`Category: ${category}`</h1>
-      <>
-        {hasError ? (
-          <div>Oh, no. An error</div>
-        ) : (
-          <Grid border="1mm solid black">
-            <Col className="technology-fields-column" color="red">
-              Fields:
-              {renderFields()}
-            </Col>
-            <Row className="technology-names-row">{renderNames()}</Row>
-            <Row className="technology-values">
-              <Col size={2} color="white">
-                Double the size
-              </Col>
-              <Col size={1} color="blue">
-                Of ME
-              </Col>
-            </Row>
-          </Grid>
-        )}
-        ;
-        <button type="button">
-          <Link to="/items/new">Create New Technology</Link>
-        </button>
-      </>
+    <div className="Compare">
+      <h1>You're Category Grid</h1>
+      <Grid color="blue" columns={names.length + 1}>
+        <Cell>I'm the Empty Cell</Cell>
+        {names.map((technology) => {
+          return <Cell className="technology-name">{technology}</Cell>;
+        })}
+        <Col color="red" rows={fieldsArr.length + 1}>
+          <Cell>Fields:</Cell>
+          {fieldsArr.map((field) => {
+            return <Cell className="field-name">{field}</Cell>;
+          })}
+        </Col>
+      </Grid>
     </div>
   );
 }
